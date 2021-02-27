@@ -1,0 +1,278 @@
+/*This is a CSS comment*/
+
+body {
+margin: 0 auto;
+margin-top: 20px;
+text-align: justify;
+font-family: "Century Gothic", Verdana, sans-serif;
+font-size: 13px;
+color: #252F33;
+background-color:white;
+    
+}
+
+p {
+    display: table-row;
+}
+
+#page
+{
+width: 95%;
+margin: 0 auto; 
+height: 100%;  
+position: relative; 
+background-color: white;
+}
+
+
+
+#header {
+    position: relative;
+    float: center;
+    width: 100%;
+    margin-bottom: 2px;
+    border-style: solid;
+    border-width: 1.1px;
+}
+
+ 
+li { 
+  display: inline-block; 
+  margin-bottom: 1px;
+  margin-top: 1px;
+  background-color: white; 
+  border-style: solid; 
+  border-width: 1px; 
+  position: relative;
+  float: center;
+  width: 94%;
+
+} 
+
+li button { 
+  display: block; 
+  height: 22px; 
+  line-height: 22px;  
+  width: 100%; 
+  text-align: center; 
+  border: 3px; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+
+} 
+li button:hover {
+  background: lightgrey; /*Change colour on hover.*/ 
+}
+
+
+form {
+    display: table;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: 80%;
+}
+
+#my-games-form {
+    width: 100%;
+    margin-left: -10%;
+}
+
+#other-loans-form, #my-loans-form {
+    width: 140%;
+    margin-left: -50%;
+}
+
+#messages-send-form {
+    width: 90%;
+    margin-left: 4%;
+}
+
+label {
+    display: table-cell;
+    text-align: right;
+    padding: 2px;
+    padding-right: 5px;
+}
+
+input {
+    display:table-cell;
+    width: 100%;
+    padding: 2px;
+    height: 17px;
+}
+
+input[type=submit] {
+	width: 80%;
+	border-radius: 4px;
+	height: 27px;
+	background-color: lightgrey;
+}
+
+.submit-button {
+	width: 80%;
+	border-radius: 4px;
+	height: 27px;
+	background-color: lightgrey;
+}
+
+
+#login-button {
+    width:80%;
+    margin-left: 130%;
+}
+
+#register-button {
+    width:90%;
+    margin-left: 100%;
+}
+
+#my-games-show-button {
+    width:130%;
+    margin-left: 100%;
+}
+
+#my-games-save-button, #my-games-delete-button {
+    width:130%;
+    margin-left: 100%;
+}
+
+#my-games-status {
+    width: 104%;
+    margin-top: -120%;
+}
+
+#other-loans-save-button, #other-loans-provide-feedback-button, #other-loans-message-user-button, #other-loans-show-feedback-button, #other-loans-feedback-submit-button, #my-loans-save-button, #my-loans-provide-feedback-button, #my-loans-message-user-button, #my-loans-show-feedback-button, #my-loans-submit-feedback-button {
+    width:60%;
+    margin-left: 100%;
+    margin-bottom: 1px;
+}
+
+ #search-games-request-open-button, #search-games-message-button, #search-games-request-button{
+    width:90%;
+    margin-left: 0%;
+    margin-bottom: 1px;
+}
+
+#search-games-request-button {
+    width:90%;
+    margin-left: 100%;
+    margin-bottom: 1px;
+}
+
+
+
+#change-details-submit-button{
+    width:90%;
+    margin-left: 100%; 
+}
+
+#block-notifications, #block-other-loans-show-feedback, #block-my-loans-show-feedback, #block-search-games{
+    margin-left:12%;
+    text-align: left;
+}
+
+#block-login-notification, #block-change-details-notification, #my-games-notification, #block-messagess-notification, #messages-list, #block-search-notification {
+    display: table;
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+#block-my-game-table {
+    padding-top: 4px;
+    padding-bottom:4px;
+}
+
+#my-games-table {
+    border-collapse: collapse;
+    margin-left: 5%;
+    
+}
+
+.my-games-table {
+    border: 1px solid black;
+}
+
+#my-games-new-game {
+    margin-bottom: 2px;
+}
+
+#block-messages {
+    display: table;
+    margin-left: 10%;
+    width: 80%;
+}
+
+#messages-list {
+    display: table;
+    width: 90%;
+    margin-top: -17px;
+    margin-bottom: 2px;
+}
+
+
+#messages-send-button{
+    float: right;
+}
+
+#footer {
+    position: relative;
+    width: 100%;
+    float: left;
+    margin-top: 8px;
+    color: #252F33;
+}
+
+a
+{
+text-decoration:none;
+color:#666666;
+}
+
+#page_content {
+    position: relative;
+    width: 100%;
+    float: left;
+    margin-top: 6px;
+    border-style: solid;
+    border-width: 1.1px;
+}
+
+#content
+{
+width: 98%;
+position:relative;
+padding-left: 4px;
+color:#111111;
+text-align: center;
+font-family:"Century-Gothic", Verdana, sans-serif;
+line-height:20px;
+}
+
+h1
+{
+position:relative;
+margin: 8px;
+text-align: center;
+font-family:"Century Gothic", Verdana, sans-serif;
+font-size:22px;
+font-weight:bold;
+color:#000000;
+}
+
+h2
+{
+position:relative;
+margin: 8px;
+text-align: center;
+font-family:"Century Gothic", Verdana, sans-serif;
+font-size:16px;
+font-weight:bold;
+color:#000000;
+}
+
+
+
+
+
+   

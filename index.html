@@ -1,0 +1,314 @@
+<!DOCTYPE html> 
+<html lang = "en"> 
+<head> 
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta http-equiv="Content-Security-Policy">
+    <!--<script type="text/javascript" src="cordova.js"></script> -->
+    <!-- jQuery -->
+    <meta name="author" content="Maciej Tarsa"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js" id="cordova-jquery"></script>
+    <script type="text/javascript" src="js/jquery-1.5.0.mobile.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <title>Board games</title> 
+</head>
+    
+<body>
+  
+<div id="app">
+     
+<div id="header">
+    <h1>Board games borrowing service</h1>
+</div>
+    
+    
+   
+    
+<div id="page_content">
+    
+<div id="content">
+
+<div id="block-login-notification"></div>
+    
+<div id="block-login">
+    <form method="post" id="login-form" name="login-form">
+        <p><label for="login-email">Email*: </label>
+        <input type="text" name="login-email" id="login-email" required></p>
+        <p><label for="login-password">Password*: </label>
+        <input type="password" name="login-password" id="login-password" required></p>
+        <p><button type="button" class="submit-button" id="login-button" onclick="login()">Login</button></p>
+    </form>
+    <p><center>New User? <a href="#Foo" onclick="registerShow()">Register</a></center></p>
+    
+</div>
+    
+<div id="block-register" style="display:none;" class="non-menu">
+    <p id="back-to-login"><center><a href="#Foo" onclick="backToLogin()">Back</a></center></p>
+    <form method="post" id="register-form" name="register-form">
+        <p><label for="register-email">Email*: </label>
+        <input type="text" name="register-email" id="register-email" required></p>
+        <p><label for="register-password">Password*: </label>
+        <input type="password" name="register-password" id="register-password" required></p>
+        <p><label for="register-password-repeat">Repeat password*: </label>
+        <input type="password" name="register-password-repeat" id="register-password-repeat" required onchange="checkPasswordEntry()">
+        <p><label for="register-name">Name*: </label>
+        <input type="text" name="register-name" id="register-name" required></p>
+        <p><label for="register-address1">Address*: </label>
+        <input type="text" name="register-address1" id="register-address1" required></p>
+        <p><label for="register-address2">Address: </label>
+        <input type="text" name="register-address2" id="register-address2" required></p>
+        <p><label for="register-town">Town*: </label>
+        <input type="text" name="register-town" id="register-town" required></p>
+        <p><label for="register-postcode">Postcode*: </label>
+        <input type="text" name="register-postcode" id="register-postcode" required></p>
+        <p><button type="button" class="submit-button" id="register-button" onclick="register()">Register</button></p>
+    </form>
+</div> 
+
+<div id="block-notifications" style="display:none;" class="menu">
+    <div id = "notifications-new-messages"></div>
+    <p>Game requests: ?</p>
+    <p>New feedback: ?</p>
+    <p>Games out: ?</p>
+    <p>Games in: ?</p>
+</div>
+    
+<div id="block-logout" style="display:none;" class="menu">
+    <li><button type="button" class="nav-button" id="logout-button" onclick="logout()">Logout</button></li>
+</div>
+    
+<div id="block-my-games-heading" style="display:none;" class="menu">
+    <li><button type="button" class="nav-button" id="my-games-button" onclick="showMyGames()">My games</button></li>
+</div>
+    
+<div id="block-my-games" style="display:none;" class="non-menu">
+    
+    <div id="block-my-game-table">
+    </div>
+    <button type="button" id="my-games-new-game" onclick="newGame()">New Game</button>
+    
+    <form method="post" id="my-games-form" name="my-games-form" style="display:none;">
+        <p><input type="hidden" name="my-games-id-field" id="my-games-id-field"></p>
+        <p><label for="my-games-name">Name*: </label>
+        <input type="text" name="my-games-name" id="my-games-name" required></p>
+        <p><label for="my-games-description">Description: </label>
+        <input type="text" name="my-games-description" id="my-games-description"></p>
+        <p><label for="my-games-value">Value (£): </label>
+        <input type="number" name="my-games-value" id="my-games-value" placeholder="0.00">
+        <p><label for="my-games-status">Status*: </label>
+        <select name="my-games-status" id="my-games-status" required>
+            <option value="visible" label="visible">
+            <option value ="hidden" label="hidden">
+        </select></p>
+        <p><button type="button" class="submit-button" id="my-games-save-button" onclick="saveGame()">Save</button></p>
+        <p><button type="button" class="submit-button" id="my-games-delete-button" onclick="deleteGame()">Delete</button></p>
+    </form>
+    
+    <div id='my-games-notification'></div>
+    
+</div>
+    
+<div id="block-other-loans-heading" style="display:none;" class="menu">
+    <li><button type="button" class="nav-button" id="other-loans-show-button" onclick="showOtherGames()">Your games currently on loan</button></li>
+</div>
+    
+<div id="block-other-loans" style="display:none;" class="non-menu">
+    
+    <table style="width: 100%;">
+        <tr>
+            <!-- these include onclick events for navigating between
+                    loans -->
+            <td align=right><button type="button" id="other-loans-prev-loan" onclick="otherLoansPrevLoan()">Prev Loan</button></td>
+            <td align=left><button type="button" id="other-loans-next-loan" onclick="otherLoansNextLoan()">Next Loan</button></td>
+        </tr>
+    </table>
+    
+    <form method="post" id="other-loans-form" name="other-loans-form">
+        <p><label for="other-loans-game">Game: </label>
+        <input type="text" name="other-loans-game" id="other-loans-game" required value="Tickets to Ride"></p>
+        <p><label for="other-loans-borrower">Borrower: </label>
+        <input type="text" name="other-loans-borrower" id="other-loans-borrower" required value="Stephen D"></p>
+        <p><label for="other-loans-startdate">Start date: </label>
+        <input type="text" name="other-loans-startdate" id="other-loans-startdate" value="2020-04-04"></p>
+        <p><label for="other-loans-duration">Duration: </label>
+        <input type="text" name="other-loans-duration" id="other-loans-duration" value="2 weeks">
+        <p><label for="other-loans-deposit-required">Deposit required*: </label>
+        <input type="text" name="other-loans-deposit-required" id="other-loans-deposit-required" required value="Yes"></p>
+        <p><label for="other-loans-deposit-details">Deposit details: </label>
+        <input type="text" name="other-loans-deposit-details" id="other-loans-deposit-details" value="cash handed over"></p>
+        <p><label for="other-loand-end-date">End date: </label>
+        <input type="text" name="other-loans-end-date" id="other-loans-end-date" required value="2020-04-22"></p>
+        <p><label for="other-loans-deposit-return">Deposit return: </label>
+        <input type="text" name="other-loans-deposit-return" id="other-loans-deposit-return" value="cash returned"></p>
+        <p><label for="other-loans-status">Status*: </label>
+        <input type="text" name="other-loans-status" id="other-loans-status" required value="returned"></p>
+        <p><button type="button" class="submit-button" id="other-loans-save-button" onclick="otherLoansSaveLoan()">Save</button></p>
+        <p><button type="button" class="submit-button" id="other-loans-message-user-button" onclick="otherLoansMessageUser()">Message borrower</button></p>
+        <p><button type="button" class="submit-button" id="other-loans-show-feedback-button" onclick="otherLoansShowFeedback()">Show user's feedback</button></p>
+        <p><button type="button" class="submit-button" id="other-loans-provide-feedback-button" onclick="otherLoansProvideFeedback()">Provide feedback to the borrower</button></p>         
+    </form>
+</div>
+    
+<div id="block-other-loans-show-feedback" style="display:none;" class="non-menu">
+    <p>User: Stephen D<br>
+        Number of feedbacks: 1<br>
+        Rating: 5/5<br>
+        Detailed feedback:<br>
+        <br>
+        Date: 2020-05-03<br>
+        <i>Good exchange, no problems</i>
+    </p>
+</div>
+    
+<div id="block-other-loans-provide-feedback" style="display:none;" class="non-menu">
+    <form method="post" id="other-loans-feedback-form" name="other-loans-feedback-form">
+        <p><label for="other-loans-stars">Stars*: </label>
+        <input type="text" name="other-loans-stars" id="other-loans-star" required></p>
+        <p><label for="other-loans-details">Details*: </label>
+        <input type="text" name="other-loans-details" id="other-loans-details" required></p>
+        <p><button type="button" class="submit-button" id="other-loans-feedback-submit-button" onclick="otherLoansSubmitFeedback()">Submit</button></p>
+    </form>
+    
+</div>
+    
+<div id="block-my-loans-heading" style="display:none;" class="menu">
+    <li><button type="button" class="nav-button" id="my-loans-show-button" onclick="showMyLoans()">Games you borrowed</button></li>
+</div>
+    
+<div id="block-my-loans" style="display:none;" class="non-menu">
+    <table style="width: 100%;">
+        <tr>
+            <!-- these include onclick events for navigating between
+                    loans -->
+            <td align=right><button type="button" id="my-loans-prev-Loan" onclick="myLoansPrevLoan()">Prev Loan</button></td>
+            <td align=left><button type="button" id="my-loans-next-loan" onclick="myLoansNextLoan()">Next Loan</button></td>
+        </tr>
+    </table>
+    <form method="post" id="my-loans-form" name="my-loans-form">
+        <p><label for="my-loans-game">Game: </label>
+        <input type="text" name="my-loans-game" id="my-loans-game" required value="Jaipur"></p>
+        <p><label for="my-loans-owner">Owner: </label>
+        <input type="text" name="my-loans-owner" id="my-loans-owner" required value="Stephen D"></p>
+        <p><label for="my-loans-start-date">Start date: </label>
+        <input type="text" name="my-loans-start-date" id="my-loans-start-date" value="2020-04-04"></p>
+        <p><label for="my-loans-duration">Duration: </label>
+        <input type="text" name="my-loans-duration" id="my-loans-duration" value="2 weeks">
+        <p><label for="my-loans-deposit-required">Deposit required*: </label>
+        <input type="text" name="my-loans-deposit-required" id="my-loans-deposit-required" required value="Yes"></p>
+        <p><label for="my-loans-deposit-details">Deposit details: </label>
+        <input type="text" name="my-loans-deposit-details" id="my-loans-deposit-details" value="cash handed over"></p>
+        <p><label for="my-loans-endd-ate">End date: </label>
+        <input type="text" name="my-loans-end-date" id="my-loans-end-date" required value="2020-04-22"></p>
+        <p><label for="my-loans-deposit-return">Deposit return: </label>
+        <input type="text" name="my-loans-deposit-return" id="my-loans-deposit-return" value="cash returned"></p>
+        <p><label for="my-loans-status">Status*: </label>
+        <input type="text" name="my-loans-status" id="my-loans-status" required value="returned"></p>
+        <p><button type="button" class="submit-button" id="my-loans-save-button" onclick=".myLoansSaveLoan()">Save</button></p>
+        <p><button type="button" class="submit-button" id="my-loans-message-user-button" onclick="myLoansMessageUser()">Message owner</button></p>
+        <p><button type="button" class="submit-button" id="my-loans-show-feedback-button" onclick="myLoansShowFeedback()">Show owner's feedback</button></p>
+        <p><button type="button" class="submit-button" id="my-loans-provide-feedback-button" onclick="myLoansProvideFeedback()">Provide feedback to the owner</button></p>         
+    </form>
+
+</div>
+    
+<div id="block-my-loans-show-feedback" style="display:none;" class="non-menu">
+    <p>User: Stephen D<br>
+        Number of feedbacks: 1<br>
+        Rating: 5/5<br>
+        Detailed feedback:<br>
+        <br>
+        Date: 2020-05-03<br>
+        <i>Good exchange, no problems</i>
+    </p>
+</div>
+    
+<div id="block-my-loans-provide-feedback" style="display:none;" class="non-menu">
+    <form method="post" id="my-loans-feedback-form" name="my-loans-feedback-form">
+        <p><label for="my-loans-stars">Stars*: </label>
+        <input type="text" name="my-loans-stars" id="my-loans-stars" required></p>
+        <p><label for="my-loans-details">Details*: </label>
+        <input type="text" name="my-loans-details" id="my-loans-details" required></p>
+        <p><button type="button" class="submit-button" id="my-loans-submit-feedback-button" onclick="myLoansSubmitFeedback()">Submit</button></p>
+    </form>
+    
+</div>
+    
+<div id="block-search-games-heading" style="display:none;" class="menu">
+    <li><button type="button" class="nav-button" id="search-games-show-button" onclick="showSearchGames()">Search for games</button></li>
+</div>
+    
+<div id="block-search-games" style="display:none;" class="non-menu">
+    
+</div>
+    
+<div id="block-search-games-request" style="display:none;" class="non-menu">
+    <form method="post" id="search-games-request-form" name="search-games-request-form">
+        <p><input type="hidden" name="search-games-request-id-field" id="search-games-request-id-field"></p>
+        <p><input type="hidden" name="search-games-request-email" id="search-games-request-email"></p>
+        <p><input type="hidden" name="search-games-request-name" id="search-games-request-name"></p>
+        <p><label for="search-games-request-start-date">Start date: </label>
+        <input type="date" name="search-games-request-start-date" id="search-games-request-start-date"></p>
+        <p><label for="search-games-request-duration">Duration: </label>
+        <input type="text" name="search-games-request-duration" id="search-games-request-duration"></p>
+        <p><label for="search-games-request-comments">Comments: </label>
+        <input type="text" name="search-games-request-comments" id="search-games-request-comments"></p>
+        <p><button type="button" class="submit-button" id="search-games-request-button" onclick="searchGamesRequest()">Submit request</button></p>
+    </form>
+</div>
+    
+<div id="block-search-notification" class="non-menu"></div>
+    
+<div id="block-messages-heading" style="display:none;" class="menu">
+    <li><button type="button" class="nav-button" id="messages-show-button" onclick="showMessages()">Messages</button></li>
+</div>
+    
+<div id="block-messages" style="display:none;" class="non-menu">
+    <div id="messages-drop-down" style="display:none;">
+        <select name="messages-list" id="messages-list" onchange="messagesDisplayChat()">
+        </select>
+    </div>
+    <div id="messages-message"></div>
+    
+    <form method="post" id="messages-send-form" name="messages-send-form" style="display:none;" class="non-menu">
+        <p><input type="text" name="messages-message-type" id="messages-message-type" required placeholder="Type your message here..."></p>
+        <p><button type="button" id="messages-send-button" onclick="messagesSendMessage()">Send message</button></p>
+    </form>
+</div>
+<div id="block-messagess-notification" class="non-menu"></div>
+
+<div id="block-change-details-heading" style="display:none;" class="menu">
+    <li><button type="button" class="nav-button" id="change-details-show-button" onclick="showChangeDetails()">Change details</button></li>
+</div>
+    
+<div id="block-change-details" style="display:none;" class="non-menu">
+    <form method="post" id="change-details-form" name="change-details-form">
+        <p><label for="change-details-name">Name*: </label>
+        <input type="text" name="change-details-name" id="change-details-name" class="content" required></p>
+        <p><label for="change-details-address1">Address*: </label>
+        <input type="text" name="change-details-address1" id="change-details-address1" class="content" required></p>
+        <p><label for="change-details-address2">Address: </label>
+        <input type="text" name="change-details-address2" id="change-details-address2" class="content" required></p>
+        <p><label for="change-details-town">Town*: </label>
+        <input type="text" name="change-details-town" id="change-details-town" class="content" required></p>
+        <p><label for="change-details-postcode">Postcode*: </label>
+        <input type="text" name="change-details-postcode" id="change-details-postcode" class="content" required></p>
+        <p><button type="button" class="submit-button" id="change-details-submit-button" onclick="changeDetailsSubmit()">Change details</button></p>
+    </form>
+    
+</div>
+    
+<div id="block-change-details-notification"></div>
+
+</div> 
+    
+</div>
+<div id="footer">
+    Copyright, privacy and other site details
+</div>
+    
+</div>
+</body> 
+</html>
