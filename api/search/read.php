@@ -12,7 +12,8 @@ include_once '../libs/php-jwt-master/src/JWT.php';
 use \Firebase\JWT\JWT;
 
 // create a variable for Google Maps API
-$MapsAPIKey = 'AIzaSyBxsXbnMcqoHDXz2CuDsooOWA_ZXntrqbk';
+$MapsAPIKey = '';
+# you need your own key to access Google Maps API
 
 // a function that removes whitespaces from postcodes
 function nowhitespace($data) {
